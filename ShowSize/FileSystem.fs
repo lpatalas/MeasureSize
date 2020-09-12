@@ -2,13 +2,17 @@
 
 open System.Collections.Generic
 open System.IO
-open System.Management.Automation
+
+type FileSystemInfoKind =
+    | Directory of DirectoryInfo
+    | File of FileInfo
 
 module FileSystem =
-    let unwrapPSObject (input: obj) =
+    let getFileSystemInfoKind (input: FileSystemInfo) =
         match input with
-        | :? PSObject as psObj -> psObj.BaseObject
-        | _ -> input
+        | :? DirectoryInfo as directoryInfo -> Directory directoryInfo
+        | :? FileInfo as fileInfo -> File fileInfo
+        | _ -> invalidOp "FileSystemInfo is neither FileInfo nor DirectoryInfo"
 
     let getFileSystemInfoForPath path =
         let attrs = File.GetAttributes path
@@ -16,12 +20,6 @@ module FileSystem =
             DirectoryInfo path :> FileSystemInfo
         else
             FileInfo path :> FileSystemInfo
-
-    let getFileSystemInfo input =
-        match (unwrapPSObject input) with
-        | :? FileSystemInfo as fsi -> fsi
-        | :? string as str -> getFileSystemInfoForPath str
-        | _ -> invalidOp "Input is neither FileSystemInfo nor String"
         
     let calculateSize (fileSystemInfo: FileSystemInfo) =
         let calculateDirectorySize calculateItemCallback (directoryInfo: DirectoryInfo) =
@@ -41,13 +39,11 @@ module FileSystem =
                 size
             | (false, _) ->
                 let size =
-                    match fileSystemInfo with
-                    | :? FileInfo as fileInfo ->
+                    match getFileSystemInfoKind fileSystemInfo with
+                    | File fileInfo ->
                         fileInfo.Length
-                    | :? DirectoryInfo as dirInfo ->
+                    | Directory dirInfo ->
                         calculateDirectorySize (calculateSizeImpl sizeCache) dirInfo
-                    | _ ->
-                        invalidOp "FileSystemInfo is neither FileInfo nor DirectoryInfo"
 
                 sizeCache.Add(fileSystemInfo.FullName, size) |> ignore
                 size

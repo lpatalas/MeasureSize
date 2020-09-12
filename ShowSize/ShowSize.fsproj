@@ -12,6 +12,7 @@
     <None Include="ItemSize.format.ps1xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="PSUtils.fs" />
     <Compile Include="FileSystem.fs" />
     <Compile Include="FormattableSize.fs" />
     <Compile Include="ShowSizeCmdlet.fs" />
