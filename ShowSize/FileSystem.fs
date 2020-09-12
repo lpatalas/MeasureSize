@@ -28,7 +28,7 @@ module FileSystem =
             
             let dirSizes =
                 directoryInfo.EnumerateDirectories()
-                |> Seq.map (fun d -> calculateSize d)
+                |> Seq.map calculateSize
 
             fileSizes |> Seq.append dirSizes |> Seq.sum
             
