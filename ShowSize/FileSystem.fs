@@ -1,6 +1,5 @@
 ﻿namespace ShowSizeModule
 
-open System.Collections.Generic
 open System.IO
 
 type FileSystemInfoKind =
@@ -21,32 +20,21 @@ module FileSystem =
         else
             FileInfo path :> FileSystemInfo
         
-    let calculateSize (fileSystemInfo: FileSystemInfo) =
-        let calculateDirectorySize calculateItemCallback (directoryInfo: DirectoryInfo) =
+    let rec calculateSize (fileSystemInfo: FileSystemInfo) =
+        let calculateDirectorySize (directoryInfo: DirectoryInfo) =
             let fileSizes = 
                 directoryInfo.EnumerateFiles()
                 |> Seq.map (fun f -> f.Length)
             
             let dirSizes =
                 directoryInfo.EnumerateDirectories()
-                |> Seq.map (fun d -> calculateItemCallback d)
+                |> Seq.map (fun d -> calculateSize d)
 
             fileSizes |> Seq.append dirSizes |> Seq.sum
             
-        let rec calculateSizeImpl (sizeCache: IDictionary<string, int64>) (fileSystemInfo: FileSystemInfo) =
-            match sizeCache.TryGetValue(fileSystemInfo.FullName) with
-            | (true, size) ->
-                size
-            | (false, _) ->
-                let size =
-                    match getFileSystemInfoKind fileSystemInfo with
-                    | File fileInfo ->
-                        fileInfo.Length
-                    | Directory dirInfo ->
-                        calculateDirectorySize (calculateSizeImpl sizeCache) dirInfo
-
-                sizeCache.Add(fileSystemInfo.FullName, size) |> ignore
-                size
-
-        calculateSizeImpl (Dictionary()) fileSystemInfo
+        match getFileSystemInfoKind fileSystemInfo with
+        | File fileInfo ->
+            fileInfo.Length
+        | Directory dirInfo ->
+            calculateDirectorySize dirInfo
             
