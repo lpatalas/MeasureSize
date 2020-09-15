@@ -18,7 +18,7 @@ type FormattableSize(sizeInBytes: int64) =
             Megabytes ((double sizeInBytes) / (1024.0 * 1024.0))
         else if sizeInBytes >= (1024L) then
             Kilobytes ((double sizeInBytes) / 1024.0)
-        else 
+        else
             Bytes sizeInBytes
 
     member this.ToColoredString() =
@@ -28,7 +28,7 @@ type FormattableSize(sizeInBytes: int64) =
         | Megabytes mb -> sprintf "\x1b[1;93m%.2fM\x1b[0m" mb
         | Kilobytes kb -> sprintf "\x1b[1;92m%.2fK\x1b[0m" kb
         | Bytes b -> sprintf "\x1b[1;97m%iB\x1b[0m" b
-        
+
     override this.ToString() =
         match this.SizeUnit with
         | Terabytes tb -> sprintf "%.2fT" tb

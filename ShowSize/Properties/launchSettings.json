@@ -1,9 +1,9 @@
 {
-  "profiles": {
-    "ShowSize": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
-      "commandLineArgs": "-NoExit -NoProfile -Command \"Import-Module .\\ShowSize.psd1\""
+    "profiles": {
+        "ShowSize": {
+            "commandName": "Executable",
+            "executablePath": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+            "commandLineArgs": "-NoExit -NoProfile -Command \"Import-Module .\\ShowSize.psd1\""
+        }
     }
-  }
 }

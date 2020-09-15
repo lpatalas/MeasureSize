@@ -19,22 +19,22 @@ module FileSystem =
             DirectoryInfo path :> FileSystemInfo
         else
             FileInfo path :> FileSystemInfo
-        
+
     let rec calculateSize (fileSystemInfo: FileSystemInfo) =
         let calculateDirectorySize (directoryInfo: DirectoryInfo) =
-            let fileSizes = 
+            let fileSizes =
                 directoryInfo.EnumerateFiles()
                 |> Seq.map (fun f -> f.Length)
-            
+
             let dirSizes =
                 directoryInfo.EnumerateDirectories()
                 |> Seq.map calculateSize
 
             fileSizes |> Seq.append dirSizes |> Seq.sum
-            
+
         match getFileSystemInfoKind fileSystemInfo with
         | File fileInfo ->
             fileInfo.Length
         | Directory dirInfo ->
             calculateDirectorySize dirInfo
-            
+
