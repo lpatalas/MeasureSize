@@ -1,5 +1,7 @@
 ﻿namespace ShowSizeModule
 
+open System
+
 type SizeUnit =
     | Terabytes of double
     | Gigabytes of double
@@ -9,7 +11,7 @@ type SizeUnit =
 
 [<Struct>]
 type FormattableSize(sizeInBytes: int64) =
-    member _.SizeUnit =
+    member private _.SizeUnit =
         if sizeInBytes >= (1024L * 1024L * 1024L * 1024L) then
             Terabytes ((double sizeInBytes) / (1024.0 * 1024.0 * 1024.0 * 1024.0))
         else if sizeInBytes >= (1024L * 1024L * 1024L) then
@@ -36,4 +38,3 @@ type FormattableSize(sizeInBytes: int64) =
         | Megabytes mb -> sprintf "%.2fM" mb
         | Kilobytes kb -> sprintf "%.2fK" kb
         | Bytes b -> sprintf "%iB" b
-
