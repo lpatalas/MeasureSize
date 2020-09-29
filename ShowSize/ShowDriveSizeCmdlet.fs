@@ -6,6 +6,7 @@ open System.Management.Automation
 type DriveSize(driveInfo: DriveInfo) =
     member val Drive = driveInfo
     member val UsedSpace = FormattableSize (driveInfo.TotalSize - driveInfo.TotalFreeSpace)
+    member val FreeSpace = FormattableSize driveInfo.TotalFreeSpace
     member val TotalSize = FormattableSize driveInfo.TotalSize
 
     member this.UsedPercentage =

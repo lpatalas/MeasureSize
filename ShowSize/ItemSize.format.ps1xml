@@ -14,6 +14,10 @@
                         <Alignment>Left</Alignment>
                     </TableColumnHeader>
                     <TableColumnHeader>
+                        <Label>FreeSpace</Label>
+                        <Alignment>Right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
                         <Label>UsedSpace</Label>
                         <Alignment>Right</Alignment>
                     </TableColumnHeader>
@@ -38,6 +42,9 @@
                                         $_.Drive
                                     }
                                 </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>FreeSpace</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>UsedSpace</PropertyName>
