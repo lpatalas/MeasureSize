@@ -23,6 +23,9 @@ type FormattableSize(sizeInBytes: int64) =
         else
             Bytes sizeInBytes
 
+    member this.ToDecimal() =
+        (decimal sizeInBytes)
+
     member this.ToColoredString() =
         match this.SizeUnit with
         | Terabytes tb -> sprintf "\x1b[1;91m%.2fT\x1b[0m" tb
