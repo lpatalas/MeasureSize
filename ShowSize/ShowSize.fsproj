@@ -5,6 +5,13 @@
         <OtherFlags>--standalone</OtherFlags>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <!-- FSC : warning FS2011: Assembly 'System.Security.AccessControl' was referenced transitively and the assembly could not be resolved automatically -->
+        <!-- FSC : warning FS2011: Assembly 'System.Security.Principal.Windows' was referenced transitively and the assembly could not be resolved automatically. -->
+        <!-- FSC : warning FS2011: Assembly 'System.IO.FileSystem.AccessControl' was referenced transitively and the assembly could not be resolved automatically. -->
+        <NoWarn>FS2011</NoWarn>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Include="ShowSize.psd1">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
