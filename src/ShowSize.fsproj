@@ -13,17 +13,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="ShowSize.psd1">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="ItemSize.format.ps1xml">
+        <None Include="*.ps1xml;*.ps?1">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <Compile Include="SeqExtensions.fs" />
         <Compile Include="FormattableSize.fs" />
         <Compile Include="FileSystem.fs" />
-        <Compile Include="ShowSizeCmdlet.fs" />
-        <Compile Include="ShowDriveSizeCmdlet.fs" />
+        <Compile Include="MeasureItemSizeCmdlet.fs" />
+        <Compile Include="MeasureDriveSizeCmdlet.fs" />
     </ItemGroup>
 
     <ItemGroup>

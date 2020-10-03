@@ -3,8 +3,8 @@
 open System
 open System.Management.Automation
 
-[<Cmdlet(VerbsCommon.Show, "Size")>]
-type ShowSizeCmdlet() =
+[<Cmdlet(VerbsDiagnostic.Measure, "ItemSize")>]
+type MeasureItemSizeCmdlet() =
     inherit PSCmdlet()
 
     [<Parameter(Position = 0, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)>]

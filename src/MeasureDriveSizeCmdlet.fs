@@ -3,8 +3,8 @@ namespace ShowSizeModule
 open System.IO
 open System.Management.Automation
 
-[<Cmdlet(VerbsCommon.Show, "DriveSize")>]
-type ShowDriveSizeCmdlet() =
+[<Cmdlet(VerbsDiagnostic.Measure, "DriveSize")>]
+type MeasureDriveSizeCmdlet() =
     inherit PSCmdlet()
 
     override this.BeginProcessing() =

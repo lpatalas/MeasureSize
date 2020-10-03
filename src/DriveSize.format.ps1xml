@@ -14,6 +14,10 @@
                         <Alignment>Left</Alignment>
                     </TableColumnHeader>
                     <TableColumnHeader>
+                        <Label>Used %</Label>
+                        <Alignment>Right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
                         <Label>FreeSpace</Label>
                         <Alignment>Right</Alignment>
                     </TableColumnHeader>
@@ -23,10 +27,6 @@
                     </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>TotalSize</Label>
-                        <Alignment>Right</Alignment>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Label>Used %</Label>
                         <Alignment>Right</Alignment>
                     </TableColumnHeader>
                 </TableHeaders>
@@ -44,15 +44,6 @@
                                 </ScriptBlock>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>FreeSpace</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>UsedSpace</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>TotalSize</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
                                 <ScriptBlock>
                                     if ($_.UsedPercentage -ge 0.75) {
                                         "$([char]0x1b)[91m{0:###.0%}$([char]0x1b)[0m" -f $_.UsedPercentage
@@ -64,6 +55,15 @@
                                         "$([char]0x1b)[92m{0:###.0%}$([char]0x1b)[0m" -f $_.UsedPercentage
                                     }
                                 </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>FreeSpace</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>UsedSpace</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>TotalSize</PropertyName>
                             </TableColumnItem>
                         </TableColumnItems>
                     </TableRowEntry>

@@ -66,7 +66,7 @@ FormatsToProcess = @('DriveSize.format.ps1xml', 'ItemSize.format.ps1xml')
 FunctionsToExport = @()
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = @('Show-DriveSize', 'Show-Size')
+CmdletsToExport = @('Measure-DriveSize', 'Measure-ItemSize')
 
 # Variables to export from this module
 VariablesToExport = @()
