@@ -5,9 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "Debug (Core)",
             "type": "coreclr",
             "program": "pwsh.exe",
+            "request": "launch",
+            "console": "externalTerminal",
+            "args": [
+                "-NoExit",
+                "-NoLogo",
+                "-NoProfile",
+                "-Command",
+                "Import-Module ${workspaceFolder}\\src\\bin\\Debug\\netstandard2.0\\ShowSize.psd1",
+            ]
+        },
+        {
+            "name": "Debug (Desktop)",
+            "type": "coreclr",
+            "program": "powershell.exe",
             "request": "launch",
             "console": "externalTerminal",
             "args": [
