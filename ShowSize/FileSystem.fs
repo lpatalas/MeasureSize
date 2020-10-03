@@ -10,6 +10,15 @@ type ItemSize(item: FileSystemInfo, size: int64) =
     member val Item = item
     member val Size = FormattableSize size
 
+type DriveSize(driveInfo: DriveInfo) =
+    member val Drive = driveInfo
+    member val UsedSpace = FormattableSize (driveInfo.TotalSize - driveInfo.TotalFreeSpace)
+    member val FreeSpace = FormattableSize driveInfo.TotalFreeSpace
+    member val TotalSize = FormattableSize driveInfo.TotalSize
+
+    member this.UsedPercentage =
+        this.UsedSpace.ToDecimal() / this.TotalSize.ToDecimal()
+
 module FileSystem =
     let getFileSystemInfoKind (input: FileSystemInfo) =
         match input with
