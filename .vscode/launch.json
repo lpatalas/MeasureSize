@@ -15,7 +15,7 @@
                 "-NoLogo",
                 "-NoProfile",
                 "-Command",
-                "Import-Module ${workspaceFolder}\\ShowSize\\bin\\Debug\\netstandard2.0\\ShowSize.psd1",
+                "Import-Module ${workspaceFolder}\\src\\bin\\Debug\\netstandard2.0\\ShowSize.psd1",
             ]
         }
     ]
