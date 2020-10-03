@@ -6,6 +6,10 @@ type FileSystemInfoKind =
     | Directory of DirectoryInfo
     | File of FileInfo
 
+type ItemSize(item: FileSystemInfo, size: int64) =
+    member val Item = item
+    member val Size = FormattableSize size
+
 module FileSystem =
     let getFileSystemInfoKind (input: FileSystemInfo) =
         match input with
@@ -37,4 +41,8 @@ module FileSystem =
             fileInfo.Length
         | Directory dirInfo ->
             calculateDirectorySize dirInfo
+
+    let getItemSize path =
+        let info = getFileSystemInfoForPath path
+        ItemSize(info, calculateSize info)
 
