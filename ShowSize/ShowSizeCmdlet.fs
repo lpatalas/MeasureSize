@@ -1,7 +1,6 @@
 ﻿namespace ShowSizeModule
 
 open System
-open System.Collections.Generic
 open System.IO
 open System.Management.Automation
 
@@ -14,21 +13,25 @@ type ShowSizeCmdlet() =
     inherit PSCmdlet()
 
     [<Parameter(Position = 0, ValueFromPipeline = true, ValueFromPipelineByPropertyName = true)>]
-    member val Path: string = "" with get, set
+    member val Path = "" with get, set
 
     override this.ProcessRecord() =
-        let getItemSize info =
-            ItemSize(info, FileSystem.calculateSize info)
-
-        let actualPath =
+        let itemPathOrDefault =
             if String.IsNullOrEmpty(this.Path) then
                 "*"
             else
                 this.Path
 
-        let (resolvedPaths, _) = this.SessionState.Path.GetResolvedProviderPathFromPSPath(actualPath)
+        let getItemSize info =
+            ItemSize(info, FileSystem.calculateSize info)
 
-        resolvedPaths
-        |> Seq.map FileSystem.getFileSystemInfoForPath
-        |> Seq.map getItemSize
-        |> Seq.iter this.WriteObject
+        let getItemSizeFromPath =
+            FileSystem.getFileSystemInfoForPath >> getItemSize
+
+        let (resolvedPaths, provider) =
+            this.SessionState.Path.GetResolvedProviderPathFromPSPath(itemPathOrDefault)
+
+        if String.Equals(provider.Name, "FileSystem", StringComparison.Ordinal) then
+            resolvedPaths
+            |> Seq.map getItemSizeFromPath
+            |> Seq.iter this.WriteObject
