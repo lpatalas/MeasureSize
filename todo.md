@@ -1,2 +1,0 @@
-- Use only Path parameter instead of two separate sets
-- Handle access denied errors
