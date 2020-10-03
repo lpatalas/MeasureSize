@@ -6,13 +6,11 @@
 Install-Module MeasureSize -ScopeCurrent CurrentUser
 ```
 
-and then
+## Usage
 
 ```
 Import-Module MeasureSize
 ```
-
-## Usage
 
 ### Compute size of all folders and files in current directory
 
