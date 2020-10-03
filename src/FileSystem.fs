@@ -1,4 +1,4 @@
-﻿namespace ShowSizeModule
+﻿namespace MeasureSizeModule
 
 open System.IO
 

@@ -2,9 +2,9 @@
 <Configuration>
     <ViewDefinitions>
         <View>
-            <Name>ShowSizeModuleItemSizeView</Name>
+            <Name>MeasureSizeModuleItemSizeView</Name>
             <ViewSelectedBy>
-                <TypeName>ShowSizeModule.ItemSize</TypeName>
+                <TypeName>MeasureSizeModule.ItemSize</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <AutoSize />

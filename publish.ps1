@@ -14,7 +14,7 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
-$projectPath = Join-Path $PSScriptRoot 'src' 'ShowSize.fsproj'
+$projectPath = Join-Path $PSScriptRoot 'src' 'MeasureSize.fsproj'
 $moduleName = [System.IO.Path]::GetFileNameWithoutExtension($projectPath)
 $artifactsDir = Join-Path $PSScriptRoot '.artifacts'
 $rootPublishDir = Join-Path $artifactsDir 'publish'

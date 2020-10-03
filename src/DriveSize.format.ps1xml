@@ -2,9 +2,9 @@
 <Configuration>
     <ViewDefinitions>
         <View>
-            <Name>ShowSizeModuleDriveSizeView</Name>
+            <Name>MeasureSizeModuleDriveSizeView</Name>
             <ViewSelectedBy>
-                <TypeName>ShowSizeModule.DriveSize</TypeName>
+                <TypeName>MeasureSizeModule.DriveSize</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <AutoSize />

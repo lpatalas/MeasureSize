@@ -1,7 +1,7 @@
 ﻿@{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'ShowSize.dll'
+RootModule = 'MeasureSize.dll'
 
 # Version number of this module.
 ModuleVersion = '0.1.0'
@@ -23,7 +23,9 @@ Copyright = '(c) Łukasz Patalas. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = @"
-`ShowSize` calculates file item sizes.
+Provides following cmdlets:
+* Measure-ItemSize - gets total size of input items including folders
+* Measure-DriveSize - gets free/used/total size for each drive
 "@
 
 # Minimum version of the PowerShell engine required by this module
@@ -95,7 +97,7 @@ PrivateData = @{
         LicenseUri = 'https://opensource.org/licenses/MIT'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/lpatalas/ShowSizeCmdlet'
+        ProjectUri = 'https://github.com/lpatalas/MeasureSize'
 
         # A URL to an icon representing this module.
         # IconUri = ''

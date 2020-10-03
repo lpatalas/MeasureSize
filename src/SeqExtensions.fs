@@ -1,4 +1,4 @@
-namespace ShowSizeModule
+namespace MeasureSizeModule
 
 module Seq =
     let chooseCollect func seq =
