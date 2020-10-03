@@ -26,6 +26,8 @@ Description = @"
 Provides following cmdlets:
 * Measure-ItemSize - gets total size of input items including folders
 * Measure-DriveSize - gets free/used/total size for each drive
+
+See project site for examples: https://github.com/lpatalas/MeasureSize.
 "@
 
 # Minimum version of the PowerShell engine required by this module
