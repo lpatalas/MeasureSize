@@ -1,5 +1,5 @@
-.artifacts/
 .ionide/
+.publish/
 .vs/
 bin/
 obj/

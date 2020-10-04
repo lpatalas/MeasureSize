@@ -14,23 +14,19 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
-$projectPath = Join-Path $PSScriptRoot 'src' 'MeasureSize.fsproj'
-$moduleName = [System.IO.Path]::GetFileNameWithoutExtension($projectPath)
-$artifactsDir = Join-Path $PSScriptRoot '.artifacts'
-$rootPublishDir = Join-Path $artifactsDir 'publish'
-$modulePublishDir = Join-Path $rootPublishDir $moduleName
+$buildVars = & (Join-Path $PSScriptRoot 'buildvars.ps1')
 
 & (Join-Path $PSScriptRoot 'build.ps1')
 
 $originalModulePath = $env:PSModulePath
 try {
-    $env:PSModulePath += ";$rootPublishDir"
+    $env:PSModulePath += ";$($buildVars.RootPublishDir)"
 
     if ($LocalPublish) {
         Write-Host 'Running local publish'
 
         Publish-Module `
-            -Path $modulePublishDir `
+            -Path $buildVars.ModulePublishDir `
             -Repository $PSRepositoryName
 
         Write-Host 'Publish succeeded' -ForegroundColor Green
@@ -38,7 +34,7 @@ try {
     else {
         Write-Host 'Running Publish-Module ... -WhatIf' -ForegroundColor Cyan
         Publish-Module `
-            -Path $modulePublishDir `
+            -Path $buildVars.ModulePublishDir `
             -Repository $PSRepositoryName `
             -NuGetApiKey $ApiKey `
             -Verbose `
@@ -46,7 +42,7 @@ try {
 
         if ($PSCmdlet.ShouldContinue("Publish module '$ModulePath' to repository '$PSRepositoryName'?", "Confirm Publish")) {
             Publish-Module `
-                -Path $modulePublishDir `
+                -Path $buildVars.ModulePublishDir `
                 -Repository $PSRepositoryName `
                 -NuGetApiKey $ApiKey
 
