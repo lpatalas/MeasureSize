@@ -20,21 +20,7 @@ $artifactsDir = Join-Path $PSScriptRoot '.artifacts'
 $rootPublishDir = Join-Path $artifactsDir 'publish'
 $modulePublishDir = Join-Path $rootPublishDir $moduleName
 
-Write-Host "Publishing '$ProjectPath' to intermediate directory $modulePublishDir" -ForegroundColor Cyan
-
-if (Test-Path $modulePublishDir) {
-    Write-Host "Removing existing directory $modulePublishDir"
-    Remove-Item $modulePublishDir -Recurse
-}
-
-dotnet publish `
-    --configuration Release `
-    --output $modulePublishDir `
-    $ProjectPath
-
-if ($LASTEXITCODE -ne 0) {
-    throw "dotnet publish failed with error code $LASTEXITCODE"
-}
+& (Join-Path $PSScriptRoot 'build.ps1')
 
 $originalModulePath = $env:PSModulePath
 try {
