@@ -1,5 +1,5 @@
 $moduleName = 'MeasureSize'
-$workspaceDir = $PSScriptRoot
+$workspaceDir = Resolve-Path (Join-Path $PSScriptRoot '..')
 
 [pscustomobject]@{
     ModuleName = $moduleName
