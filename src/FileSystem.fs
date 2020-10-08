@@ -2,10 +2,6 @@
 
 open System.IO
 
-type FileSystemInfoKind =
-    | Directory of DirectoryInfo
-    | File of FileInfo
-
 type ItemSize(item: FileSystemInfo, size: int64) =
     member val Item = item
     member val Size = FormattableSize size
@@ -20,7 +16,7 @@ type DriveSize(driveInfo: DriveInfo) =
         this.UsedSpace.ToDecimal() / this.TotalSize.ToDecimal()
 
 module FileSystem =
-    let getFileSystemInfoKind (input: FileSystemInfo) =
+    let (|Directory|File|) (input: FileSystemInfo) =
         match input with
         | :? DirectoryInfo as directoryInfo -> Directory directoryInfo
         | :? FileInfo as fileInfo -> File fileInfo
@@ -45,11 +41,9 @@ module FileSystem =
 
             fileSizes |> Seq.append dirSizes |> Seq.sum
 
-        match getFileSystemInfoKind fileSystemInfo with
-        | File fileInfo ->
-            fileInfo.Length
-        | Directory dirInfo ->
-            calculateDirectorySize dirInfo
+        match fileSystemInfo with
+        | File fileInfo -> fileInfo.Length
+        | Directory dirInfo -> calculateDirectorySize dirInfo
 
     let getItemSize path =
         let info = getFileSystemInfoForPath path
