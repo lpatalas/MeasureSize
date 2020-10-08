@@ -4,6 +4,7 @@ open System
 open System.Management.Automation
 
 [<Cmdlet(VerbsDiagnostic.Measure, "ItemSize")>]
+[<OutputType(typeof<ItemSize>)>]
 type MeasureItemSizeCmdlet() =
     inherit PSCmdlet()
 
