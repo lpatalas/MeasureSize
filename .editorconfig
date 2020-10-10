@@ -1,10 +1,10 @@
 root = true
 
 [*]
-insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.{fs,fsproj,json,ps1,ps1xml,psd1,psm1}]
 indent_size = 4
 indent_style = space
+insert_final_newline = true
 tab_width = 4
