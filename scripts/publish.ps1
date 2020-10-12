@@ -40,7 +40,7 @@ try {
             -Verbose `
             -WhatIf
 
-        if ($PSCmdlet.ShouldContinue("Publish module '$ModulePath' to repository '$PSRepositoryName'?", "Confirm Publish")) {
+        if ($PSCmdlet.ShouldContinue("Publish module '$($buildVars.ModulePublishDir)' to repository '$PSRepositoryName'?", "Confirm Publish")) {
             Publish-Module `
                 -Path $buildVars.ModulePublishDir `
                 -Repository $PSRepositoryName `
