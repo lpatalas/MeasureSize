@@ -46,5 +46,5 @@ module FileSystem =
             | :? UnauthorizedAccessException -> 0L
 
         match path with
-        | File fileInfo -> calculateFileSize fileInfo
-        | Directory dirInfo -> calculateDirectorySize dirInfo
+        | File fileInfo -> ItemSize(fileInfo, calculateFileSize fileInfo)
+        | Directory dirInfo -> ItemSize(dirInfo, calculateDirectorySize dirInfo)
