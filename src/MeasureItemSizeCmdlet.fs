@@ -51,7 +51,7 @@ type MeasureItemSizeCmdlet() =
         match resolvedPath with
         | ValidPath path ->
             path
-            |> FileSystem.getItemSize
+            |> FileSystem.calculateSize
             |> this.WriteObject
         | InvalidPath ex ->
             this.WriteError(

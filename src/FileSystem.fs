@@ -1,5 +1,6 @@
 ﻿namespace MeasureSizeModule
 
+open System
 open System.IO
 
 type ItemSize(item: FileSystemInfo, size: int64) =
@@ -16,36 +17,34 @@ type DriveSize(driveInfo: DriveInfo) =
         this.UsedSpace.ToDecimal() / this.TotalSize.ToDecimal()
 
 module FileSystem =
-    let (|Directory|File|) (input: FileSystemInfo) =
-        match input with
-        | :? DirectoryInfo as directoryInfo -> Directory directoryInfo
-        | :? FileInfo as fileInfo -> File fileInfo
-        | _ -> invalidOp "FileSystemInfo is neither FileInfo nor DirectoryInfo"
-
-    let getFileSystemInfoForPath path =
+    let (|Directory|File|) (path: string) =
         let attrs = File.GetAttributes path
         if attrs.HasFlag(FileAttributes.Directory) then
-            DirectoryInfo path :> FileSystemInfo
+            Directory (DirectoryInfo path)
         else
-            FileInfo path :> FileSystemInfo
+            File (FileInfo path)
 
-    let rec calculateSize (fileSystemInfo: FileSystemInfo) =
-        let calculateDirectorySize (directoryInfo: DirectoryInfo) =
-            let fileSizes =
-                directoryInfo.EnumerateFiles()
-                |> Seq.map (fun f -> f.Length)
+    let calculateSize path =
+        let calculateFileSize (fileInfo: FileInfo) =
+            try
+                fileInfo.Length
+            with
+            | :? UnauthorizedAccessException -> 0L
 
-            let dirSizes =
-                directoryInfo.EnumerateDirectories()
-                |> Seq.map calculateSize
+        let rec calculateDirectorySize (directoryInfo: DirectoryInfo) =
+            try
+                let fileSizes =
+                    directoryInfo.EnumerateFiles()
+                    |> Seq.map calculateFileSize
 
-            fileSizes |> Seq.append dirSizes |> Seq.sum
+                let dirSizes =
+                    directoryInfo.EnumerateDirectories()
+                    |> Seq.map calculateDirectorySize
 
-        match fileSystemInfo with
-        | File fileInfo -> fileInfo.Length
+                fileSizes |> Seq.append dirSizes |> Seq.sum
+            with
+            | :? UnauthorizedAccessException -> 0L
+
+        match path with
+        | File fileInfo -> calculateFileSize fileInfo
         | Directory dirInfo -> calculateDirectorySize dirInfo
-
-    let getItemSize path =
-        let info = getFileSystemInfoForPath path
-        ItemSize(info, calculateSize info)
-
