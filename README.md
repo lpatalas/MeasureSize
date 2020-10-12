@@ -1,5 +1,7 @@
 # MeasureSize PowerShell module
 
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/MeasureSize.svg)](https://www.powershellgallery.com/packages/MeasureSize)
+
 ## Installation
 
 ```
