@@ -48,10 +48,11 @@ Filter items by size
 
 ### -Path
 
-Path to the file system items which size will be computed. Can be a wildcard.
-If not specified then default value of "*" is used - i.e. it will compute
-the size of each item in current directory. If the path points to something
-that is not file system item, like variable or registry key, it will be ignored.
+Path to the file or directory. Can be a wildcard. If not specified
+then the default value of "*" is used - it is it will compute the size
+of each item in current directory. If the path points to something that
+is not file system item, like variable or registry key then error will
+be written to the error stream.
 
 ```yaml
 Type: String[]
